@@ -131,5 +131,8 @@
 		<!-- Theme Initialization Files -->
 		<script src="js/theme.init.js"></script>
 
+		<!-- Examples -->
+		<script src="js/examples/examples.gallery.js"></script>
+
 	</body>
 </html>
