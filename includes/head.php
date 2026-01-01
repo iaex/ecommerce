@@ -1,3 +1,13 @@
+<?php
+require_once __DIR__ . '/../app/bootstrap.php';
+
+$result = $mysqli->query("SELECT * FROM products WHERE status = 1");
+
+if (!$result || $result->num_rows === 0) {
+    die("No products available");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>

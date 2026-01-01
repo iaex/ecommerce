@@ -1,11 +1,15 @@
+
 <?php include("includes/head.php"); ?>
 	<?php include("includes/header.php"); ?>
+
+	
 
 			<div role="main" class="main shop pt-4">
 
 				<div class="container">
 
 					<div class="row">
+						
 						<div class="col-lg-3 order-2 order-lg-1">
 							<?php include ("includes/sidebar.php"); ?>
 						</div>
@@ -13,13 +17,46 @@
 
 							<div class="masonry-loader masonry-loader-showing">
 								<div class="row products product-thumb-info-list" data-plugin-masonry data-plugin-options="{'layoutMode': 'fitRows'}">
+									<div class="row">
+									<?php while ($product = $result->fetch_assoc()): ?>
+										
+										<div class="col-lg-4 col-md-6 mb-4">
+											<div class="product-thumb-info border-0">
+
+												<div class="product-thumb-info-image">
+													<img 
+														src="uploads/<?= htmlspecialchars($product['image']) ?>" 
+														class="img-fluid" 
+														alt="<?= htmlspecialchars($product['name']) ?>">
+												</div>
+
+												<div class="product-thumb-info-content p-3">
+													<h3 class="text-4">
+														<?= htmlspecialchars($product['name']) ?>
+													</h3>
+
+													<p class="text-2">
+														<?= htmlspecialchars($product['description']) ?>
+													</p>
+
+													<span class="price text-4 font-weight-bold">
+														৳<?= number_format($product['price']) ?>
+													</span>
+												</div>
+
+											</div>
+										</div>
+
+									<?php endwhile; ?>
+									</div>
+
 
 									<div class="col-sm-6 col-lg-4">
 										<div class="product mb-0">
 											<div class="product-thumb-info border-0 mb-3">
 
 												<div class="product-thumb-info-badges-wrapper">
-<span class="badge badge-ecommerce text-bg-success">NEW</span>
+													<span class="badge badge-ecommerce text-bg-success">NEW</span>
 
 												</div>
 
@@ -54,6 +91,21 @@
 												<span class="amount">550 TK</span>
 											</p>
 										</div>
+										<?php
+											require_once __DIR__ . "/app/bootstrap.php";
+
+											$result = $mysqli->query("SELECT * FROM products WHERE status = 1");
+
+											if (!$result) {
+												die("Query Error: " . $mysqli->error);
+											}
+
+											if ($result->num_rows === 0) {
+												echo "No active products found";
+												exit;
+											}
+
+											$product = $result->fetch_assoc(); ?>	
 									</div>
 
 									<div class="col-sm-6 col-lg-4">
@@ -143,7 +195,7 @@
 
 												<div class="product-thumb-info-badges-wrapper">
 
-<span class="badge badge-ecommerce text-bg-danger">27% OFF</span>
+				<span class="badge badge-ecommerce text-bg-danger">27% OFF</span>
 												</div>
 
 												<div class="addtocart-btn-wrapper">
